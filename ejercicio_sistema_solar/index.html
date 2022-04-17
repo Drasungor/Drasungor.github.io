@@ -414,7 +414,7 @@
             mat4.translate(rotacion_alrededor_del_sol_tierra,rotacion_alrededor_del_sol_tierra,[distancia_tierra,0,0]);
 
             mat4.rotate(m1,rotacion_alrededor_del_sol_tierra, -2.0 * Math.PI * tiempo_simulado/31557600,[0,1,0]);
-            mat4.rotate(m1,m1, -2.0 * Math.PI * 23/180,[0,0,1]);
+            mat4.rotate(m1,m1, -Math.PI * 23/180,[0,0,1]);
 
             // 1 dia = 86400 segundos
             mat4.rotate(m1,m1, 2.0 * Math.PI * tiempo_simulado/86400,[0,1,0]);
