@@ -102,16 +102,43 @@ function generarSuperficie(superficie,filas,columnas){
 
     // Buffer de indices de los triángulos
     
-    //indexBuffer=[];  
-    indexBuffer=[0,1,2,2,1,3]; // Estos valores iniciales harcodeados solo dibujan 2 triangulos, REMOVER ESTA LINEA!
+    // indexBuffer=[0, filas, 1];  
+    indexBuffer = Array(filas * columnas + columnas - 2);  
+    // indexBuffer=[0,1,2,2,1,3]; // Estos valores iniciales harcodeados solo dibujan 2 triangulos, REMOVER ESTA LINEA!
 
+    // filas >= 2
+    // columnas >= 2
+    let indice = 0;
+    let offset_fila = 1;
+    let indice_modificado = 0;
     for (i=0; i < filas; i++) {
         for (j=0; j < columnas; j++) {
 
             // completar la lógica necesaria para llenar el indexbuffer en funcion de filas y columnas
             // teniendo en cuenta que se va a dibujar todo el buffer con la primitiva "triangle_strip" 
-            
+
+            // Falta para el calculo de indice modificado ver que se hace con el valor repetido de cuando se cambia de fila
+            indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2;
+            indexBuffer[indice_modificado] = i * filas + j;
+            if ((i !== 0) && (i !== filas - 1)) {
+                // Aca se llena el valor de la segunda vez q se usa el vertice (i, j), hay que ver como se toma en cuenta el
+                // valor repetido q se agrega por el triangle strip
+                indexBuffer[indice_modificado + 2 * filas + 1] = i * filas + j;
+            }
+            // if (i % 2 === 0) {
+            //     indexBuffer[indice_modificado] = i * filas + j;
+            // } else {
+            //     indexBuffer[indice_modificado] = i * filas + columnas - j - 1;
+            // }
+
+            // if (i % 2 === 0) {
+            //     indice = (i + 1) * filas + j + 1;
+            // } else {
+            //     indice = (i + 1) * filas + columnas - j - 1;
+            // }
+            // indexBuffer.push(indice);
         }
+        // indexBuffer.push(indice);
     }
 
     // Creación e Inicialización de los buffers
