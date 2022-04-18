@@ -103,40 +103,54 @@ function generarSuperficie(superficie,filas,columnas){
     // Buffer de indices de los triángulos
     
     // indexBuffer=[0, filas, 1];  
-    indexBuffer = Array(filas * columnas + columnas - 2);  
+    // indexBuffer = Array(filas * columnas + columnas * (filas - 2) + columnas - 2);  
+    indexBuffer = Array(columnas * (2 * filas - 2) + columnas - 2);  
     // indexBuffer=[0,1,2,2,1,3]; // Estos valores iniciales harcodeados solo dibujan 2 triangulos, REMOVER ESTA LINEA!
 
     // filas >= 2
     // columnas >= 2
-    let indice = 0;
-    let offset_fila = 1;
     let indice_modificado = 0;
+    let indices_escritos = 0;
     for (i=0; i < filas; i++) {
         for (j=0; j < columnas; j++) {
 
             // completar la lógica necesaria para llenar el indexbuffer en funcion de filas y columnas
             // teniendo en cuenta que se va a dibujar todo el buffer con la primitiva "triangle_strip" 
 
-            // Falta para el calculo de indice modificado ver que se hace con el valor repetido de cuando se cambia de fila
-            indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2;
-            indexBuffer[indice_modificado] = i * filas + j;
+            if ((i !== 0) && (i !== filas - 1)) {// Ver si esta bien o no el !== filas - 1
+                // indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
+                //                                                                      // cuando se cambia de fila se repite un indice
+
+                // if (i % 2 === 1) {
+                //     indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
+                //                                                                             // cuando se cambia de fila se repite un indice                                                                                     
+                // } else {
+
+                // }
+                indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
+                                                                                        // cuando se cambia de fila se repite un indice                                                                                     
+            } else {
+                // indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2;
+                indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2;
+            }
+            // indexBuffer[indice_modificado] = i * filas + j;
+            if (i % 2 === 1) {
+                indexBuffer[indice_modificado] = i * columnas + j;
+            } else if (i !== 0) {
+                indexBuffer[indice_modificado] = (i + 1) * columnas - j;
+            }
+            
             if ((i !== 0) && (i !== filas - 1)) {
                 // Aca se llena el valor de la segunda vez q se usa el vertice (i, j), hay que ver como se toma en cuenta el
                 // valor repetido q se agrega por el triangle strip
-                indexBuffer[indice_modificado + 2 * filas + 1] = i * filas + j;
+                // indexBuffer[indice_modificado + 2 * filas + i] = i * filas + j;
+                if (i % 2 === 1) {
+                    indexBuffer[indice_modificado + 2 * columnas - 2 * j + 1] = i * columnas + j;
+                } else {
+                    indexBuffer[indice_modificado + 2 * columnas + 1] = i * columnas + j;
+                }
+                
             }
-            // if (i % 2 === 0) {
-            //     indexBuffer[indice_modificado] = i * filas + j;
-            // } else {
-            //     indexBuffer[indice_modificado] = i * filas + columnas - j - 1;
-            // }
-
-            // if (i % 2 === 0) {
-            //     indice = (i + 1) * filas + j + 1;
-            // } else {
-            //     indice = (i + 1) * filas + columnas - j - 1;
-            // }
-            // indexBuffer.push(indice);
         }
         // indexBuffer.push(indice);
     }
