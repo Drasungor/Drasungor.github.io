@@ -117,40 +117,7 @@ function generarSuperficie(superficie,filas,columnas){
             // completar la lógica necesaria para llenar el indexbuffer en funcion de filas y columnas
             // teniendo en cuenta que se va a dibujar todo el buffer con la primitiva "triangle_strip" 
 
-            if ((i !== 0) && (i !== filas - 1)) {// Ver si esta bien o no el !== filas - 1
-                // indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
-                //                                                                      // cuando se cambia de fila se repite un indice
 
-                // if (i % 2 === 1) {
-                //     indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
-                //                                                                             // cuando se cambia de fila se repite un indice                                                                                     
-                // } else {
-
-                // }
-                indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2 + i - 1; // El +i-1 es para tomar en cuenta q 
-                                                                                        // cuando se cambia de fila se repite un indice                                                                                     
-            } else {
-                // indice_modificado = Math.floor(i/2) * filas + j * 2 + i % 2;
-                indice_modificado = Math.floor(i/2) * columnas + j * 2 + i % 2;
-            }
-            // indexBuffer[indice_modificado] = i * filas + j;
-            if (i % 2 === 1) {
-                indexBuffer[indice_modificado] = i * columnas + j;
-            } else if (i !== 0) {
-                indexBuffer[indice_modificado] = (i + 1) * columnas - j;
-            }
-            
-            if ((i !== 0) && (i !== filas - 1)) {
-                // Aca se llena el valor de la segunda vez q se usa el vertice (i, j), hay que ver como se toma en cuenta el
-                // valor repetido q se agrega por el triangle strip
-                // indexBuffer[indice_modificado + 2 * filas + i] = i * filas + j;
-                if (i % 2 === 1) {
-                    indexBuffer[indice_modificado + 2 * columnas - 2 * j + 1] = i * columnas + j;
-                } else {
-                    indexBuffer[indice_modificado + 2 * columnas + 1] = i * columnas + j;
-                }
-                
-            }
         }
         // indexBuffer.push(indice);
     }
