@@ -102,10 +102,6 @@ function generarSuperficie(superficie,filas,columnas){
 
     // Buffer de indices de los triángulos
     
-    // indexBuffer=[0, filas, 1];  
-    // indexBuffer = Array(filas * columnas + columnas * (filas - 2) + columnas - 2);  
-    // indexBuffer = Array(columnas * (2 * filas - 2) + columnas - 2);  
-    // indexBuffer=[0,1,2,2,1,3]; // Estos valores iniciales harcodeados solo dibujan 2 triangulos, REMOVER ESTA LINEA!
     indexBuffer = [];
     let cantidad_filas_vertices = filas + 1;
     let cantidad_columnas_vertices = columnas + 1;
@@ -113,7 +109,6 @@ function generarSuperficie(superficie,filas,columnas){
     let indices_escritos = 0;
     for (i=0; i < filas; i++) {
         for (j=0; j < columnas; j++) {
-
             // completar la lógica necesaria para llenar el indexbuffer en funcion de filas y columnas
             // teniendo en cuenta que se va a dibujar todo el buffer con la primitiva "triangle_strip" 
             if (j === 0) {
@@ -133,7 +128,6 @@ function generarSuperficie(superficie,filas,columnas){
                 indexBuffer.push((i + 2) * cantidad_columnas_vertices - j - 2);
             }
         }
-        // indexBuffer.push(indice);
     }
 
     // Creación e Inicialización de los buffers
