@@ -31,14 +31,17 @@ var mallaDeTriangulos;
 
 // var filas=1;
 // var columnas=1;
-var filas=1;
-var columnas=1;
+var filas=100;
+var columnas=100;
 
 
 function crearGeometria(){
         
 
-    superficie3D=new Plano(3,3);
+    // superficie3D=new Plano(3,3);
+    // superficie3D=new Esfera(3);
+    superficie3D=new TuboSenoidal(0.05, 0.25, 0.25, 1.5);
+    
     mallaDeTriangulos=generarSuperficie(superficie3D,filas,columnas);
     
 }
@@ -87,6 +90,27 @@ function Esfera(radio){
     }
 }
 
+function TuboSenoidal(amplitudDeOnda, longitudDeOnda, radioDelTubo, altura){
+
+    this.getPosicion=function(u,v){
+        let phi = 2 * Math.PI * v;
+        var y = u * altura;
+        // var x = radioDelTubo * Math.cos(phi) + amplitudDeOnda * Math.sin(2* Math.PI * y/longitudDeOnda);
+        // var z = radioDelTubo * Math.sin(phi) + amplitudDeOnda * Math.sin(2* Math.PI * y/longitudDeOnda);
+        let radioFinal = radioDelTubo + amplitudDeOnda * Math.sin(2* Math.PI * y/longitudDeOnda);
+        var x = radioFinal * Math.cos(phi);
+        var z = radioFinal * Math.sin(phi);
+        return [x,y,z];
+    }
+
+    this.getNormal=function(u,v){
+        return [0,1,0];
+    }
+
+    this.getCoordenadasTextura=function(u,v){
+        return [u,v];
+    }
+}
 
 
 function generarSuperficie(superficie,filas,columnas){
