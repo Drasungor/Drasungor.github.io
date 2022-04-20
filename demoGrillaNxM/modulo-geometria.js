@@ -25,22 +25,29 @@
     
 */
 
+var superficies = ["plano", "esfera", "tubo_senoidal"];
+var superficies_index = 2;
+
 
 var superficie3D;
 var mallaDeTriangulos;
 
 // var filas=1;
 // var columnas=1;
-var filas=100;
-var columnas=100;
+var filas=50;
+var columnas=50;
 
 
 function crearGeometria(){
         
-
-    // superficie3D=new Plano(3,3);
-    // superficie3D=new Esfera(3);
-    superficie3D=new TuboSenoidal(0.05, 0.25, 0.25, 1.5);
+    let superficie = superficies[superficies_index];
+    if (superficie === "plano") {
+        superficie3D=new Plano(3,3);
+    } else if (superficie === "esfera") {
+        superficie3D=new Esfera(3);
+    } else {
+        superficie3D=new TuboSenoidal(0.05, 0.25, 0.25, 1.5);
+    }
     
     mallaDeTriangulos=generarSuperficie(superficie3D,filas,columnas);
     
