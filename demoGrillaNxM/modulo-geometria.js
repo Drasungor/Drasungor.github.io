@@ -29,6 +29,8 @@
 var superficie3D;
 var mallaDeTriangulos;
 
+// var filas=1;
+// var columnas=1;
 var filas=1;
 var columnas=1;
 
@@ -65,6 +67,25 @@ function Plano(ancho,largo){
     }
 }
 
+function Esfera(radio){
+
+    this.getPosicion=function(u,v){
+        let tita = Math.PI * v;
+        let phi = 2 * Math.PI * v;
+        var x = radio * Math.sin(tita) * Math.cos(phi);
+        var y = radio * Math.cos(tita);
+        var z = radio * Math.sin(tita) * Math.sin(phi);
+        return [x,y,z];
+    }
+
+    this.getNormal=function(u,v){
+        return [0,1,0];
+    }
+
+    this.getCoordenadasTextura=function(u,v){
+        return [u,v];
+    }
+}
 
 
 
