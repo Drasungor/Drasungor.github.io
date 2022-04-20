@@ -105,8 +105,6 @@ function generarSuperficie(superficie,filas,columnas){
     indexBuffer = [];
     let cantidad_filas_vertices = filas + 1;
     let cantidad_columnas_vertices = columnas + 1;
-    let indice_modificado = 0;
-    let indices_escritos = 0;
     for (i=0; i < filas; i++) {
         for (j=0; j < columnas; j++) {
             // completar la lógica necesaria para llenar el indexbuffer en funcion de filas y columnas
@@ -185,7 +183,8 @@ function dibujarMalla(mallaDeTriangulos){
         /*
             Aqui es necesario modificar la primitiva por triangle_strip
         */
-        gl.drawElements(gl.TRIANGLES, mallaDeTriangulos.webgl_index_buffer.numItems, gl.UNSIGNED_SHORT, 0);
+        // gl.drawElements(gl.TRIANGLES, mallaDeTriangulos.webgl_index_buffer.numItems, gl.UNSIGNED_SHORT, 0);
+        gl.drawElements(gl.TRIANGLE_STRIP, mallaDeTriangulos.webgl_index_buffer.numItems, gl.UNSIGNED_SHORT, 0);
     }
     
     if (modo!="smooth") {
